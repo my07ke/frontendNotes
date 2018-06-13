@@ -169,7 +169,7 @@ Error
 
 ```javascript
   var a={} 其实是 var a=new Object() 的语法糖
-  var a=[] 其实是 var a=new Array() 的语法糖
+  var a=[] 其实是 var a=new Array() 的语法糖
   function Foo() {....} 其实是 var Foo=new Function(...)
   使用 instanceof 判断一个函数是否是一个变量的构造函数
 ```
