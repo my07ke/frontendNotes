@@ -2,31 +2,6 @@
 
 * * *
 
-#### 面试题
-
--   JS中使用 `typeof` 的类型
-    -   考点: `js基本类型`
-    ```javascript
-      `number`
-      `string`
-      `object`
-      `boolean`
-      `undefined`
-      `function`
-    ```
--   `===` 和 `==` 何时使用
-    -   考点: `强制类型转换`
--   `window.onload` 和 `DOMContentLoaded`的区别
-    -   `浏览器渲染过程`
--   用js创建10个 `<a>`标签，点击时弹出对应的序号
-    -   考点:`作用域`
--   简述如何实现一个 `模块加载器` ,实现类似 `require.js` 的基本功能
-    -   考点: `JS模块化`
--   实现数组的`随机排序`
-    -   考点:`JS基础算法`
-
-* * *
-
 #### 变量类型和计算
 
 ##### q:JS中使用 `typeof` 的类型？
@@ -233,12 +208,104 @@ Error
 
 ###### 原型链
 
+```javascript
+  // 构造函数
+  function Foo(name, age) {
+    this.name = name;
+  }
+  Foo.prototype.alertName = function() {
+    console.log('alertName' + this.name);
+  }
+  // 创建示例
+  var f = new Foo('张三');
+  f.prientname = function() {
+    console.log('prientname' + this.name);
+  }
+  // 测试
+  f.prientname(); // prientname张三
+  f.alertName(); // alertName张三
+
+  f.toString(); // "[object Object]" 在f.__proto__.__proto__中查找，即Object的显式原型中寻找
+```
+
+![原型链](原型链.png)
+
 ###### instanceof
+
+-   `instanceof` 用于判断 `引用类型` 属于哪个 `构造函数` 的方法
+
+```javascript
+  // f的 __proto__ 一层一层网上找，找到对应的 Foo.prototype
+  f instanceof Foo //true
+  f instanceof Object //true
+```
 
 ##### q:如何准确判断一个变量是数组类型
 
+```javascript
+  var arr=[]
+  // 可以正确判断的情况
+  arr instanceof Array //true
+  Object.prototype.toString.call(arr) // "[object Array]"
+  Object.prototype.toString.apply(arr) // "[object Array]"
+  Array.isArray(arr) // true
+  // 不能判断的情况
+  typeof arr // object 是无法判断是否是数组的
+  // 不准确
+  arr.constructor === Array //true 但是原型链可以被改写，这样判断不安全
+```
+
+```javascript
+  // 扩展 兼容老版本浏览器，isArray的写法
+  if(!Array.isArray){
+    Array.isArray = function(arg){
+      return Object.property.toString.call(arg) === '[object Array]'
+    }
+  }
+```
+
 ##### q:写一个原型链继承的例子
 
-##### q:描述new一个对象的过程
+```javascript
+  function Elem(id) {
+    this.elem = document.getElementById(id);
+  }
+  Elem.prototype.html = function(val) {
+    var elem = this.elem;
+    if (val) {
+      elem.innerHTML = val;
+      return this; // 后续的链式操作
+    } else {
+      return elem.innerHTML;
+    }
+  }
+  Elem.prototype.on = function(type, fn) {
+    var elem = this.elem;
+    elem.addEventListener(type, fn);
+    return this;
+  }
+  var main = new Elem('main')
+  main.html('<p>Hello World</p>').on('click', function() {
+    alert('Hello javascript')
+  })
+```
+
+##### q:描述 `new` 一个对象的过程
+
+-   创建一个对象
+-   `this` 指向这个新对象
+-   执行代码，即对 `this` 赋值
+-   返回 `this`
+
+```javascript
+  function Foo(name, age) {
+    this.name = name;
+    this.age = age;
+    this.class = 'class-1';
+    //return this ; //默认有这一行
+  }
+  var f = new Foo('张三', 22);
+  var f1 = new Foo('李四', 29);
+```
 
 * * *
