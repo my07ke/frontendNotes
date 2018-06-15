@@ -309,3 +309,233 @@ Error
 ```
 
 * * *
+
+#### 数组API
+
+##### `栈方法` (后进先出)
+
+> 在栈的顶部进行插入和移除操作，使用 `push` 和 `pop` 方法结合（会修改原始数组）
+
+-   在数组末尾插入(push可以添加多项) `push`
+
+    ```javascript
+    var arr=[1,2,3];
+    var m=arr.push('m');
+    console.log(m);  // 4 ，插入末尾，并返回修改后数组的长度
+    console.log(arr); // [1, 2, 3, "m"]
+    ```
+
+-   移除最后一项 `pop`
+        ```javascript
+        var arr=[1,2,3];
+        var n=arr.pop();
+        console.log(n);  // 3 移除最后一项，并返回这一项
+        console.log(arr); // [1, 2]
+        ```
+
+##### `队列方法` (先进先出)
+
+> 使用 `shift` 方法(移除数组第一个项并返回该项，用时数组长度减1)结合 `push` ，就可以像操作队列一样操作数组（会修改原始数组）
+
+-   移除数组第一个项并返回该项 `shift`
+    ```javascript
+    var arr=[1,2,3];
+    var s=arr.shift();
+    console.log(s);  // 1 移除第一项，并返回这一项
+    console.log(arr); // [2, 3]
+    ```
+-   在数组前端添加任意个项并返回新数组的长度 `unshift`,使用 `unshift` 和 `pop`可以从相反的方向来模拟队列
+    ```javascript
+    var arr=[1,2,3];
+    var l=arr.unshift(4,5);
+    console.log(l);  // 5 向数组前端添加两项，并返回修改后的数组长度
+    console.log(arr); // [4, 5, 1, 2, 3]
+    ```
+
+##### `重排序方法` （会修改原始数组）
+
+-   `reverse`
+
+    ```javascript
+    var arr=[1,2,3];
+    arr.reverse();
+    console.log(arr); // [3,2,1]
+    ```
+
+-   `sort`
+
+    ```javascript
+    var arr=[1,8,10,22,31,3];
+    arr.sort();
+    console.log(arr); // [1, 10, 22, 3, 31, 8]
+    ```
+
+    >  `sort`并没有像我们预期的进行排序， `sort` 排序时，会调用数组每一项的 `toString()` 方法，即使数组的所有项都是数字，也是转换成字符串进行比较的，一般 `sort` 方法会接受一个比较函数，以便我们进行排序。
+
+    ```javascript
+    var arr = [1, 8, 10, 22, 31, 3];
+
+    function compare(v1, v2) {
+      if (v1 < v2) {
+        return -1;
+      } else if (v1 > v2) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+    arr.sort(compare);
+    console.log(arr); // [1, 3, 8, 10, 22, 31]
+    // 比较函数还可以这样写
+    function compare(v1, v2) {
+      return v1 - v2;
+    }
+    ```
+
+>   `reverse` 和 `sort` 的返回值是经过排序后的数组;
+
+##### `操作方法`
+
+-   `concat` 基于当前数组的所有项创建一个新数组 (不会修改原数组)
+    ```javascript
+    var arr = ['a', 'b', 'c']
+    // 当添加空数组时
+    var arr1 = arr.concat([]);
+    var arr2 = arr.concat();
+    // 添加普通项
+    var arr3 = arr.concat('');
+    var arr4 = arr.concat(null, undefined);
+    var arr5 = arr.concat('d');
+    // 添加数组
+    var arr6 = arr.concat(['d', 'e', 'f']);
+    // 添加普通项和数组
+    var arr7 = arr.concat('m', 'n', ',', ['d', 'e', 'f']);
+    // 添加子项为数组的数组
+    var arr8 = arr.concat(['d', 'e', 'f', ['x', 'y']]);
+    // 添加两个数组
+    var arr9 = arr.concat(['m', 'n', ','], ['d', 'e', 'f']);
+    console.log(arr)  // ["a", "b", "c"]
+    console.log(arr1) // ["a", "b", "c"]
+    console.log(arr2) // ["a", "b", "c"]
+    console.log(arr3) // ["a", "b", "c", ""]
+    console.log(arr4) // ["a", "b", "c", null, undefined]
+    console.log(arr5) // ["a", "b", "c", "d"]
+    console.log(arr6) // ["a", "b", "c", "d", "e", "f"]
+    console.log(arr7) // ["a", "b", "c", "m", "n", ",", "d", "e", "f"]
+    console.log(arr8) // ["a", "b", "c", "d", "e", "f", Array(2)]
+    console.log(arr9) // ["a", "b", "c", "m", "n", ",", "d", "e", "f"]
+    ```
+-   `slice` 基于当前数组中的一或多个项创建一个新数组，返回值是新数组(会修改原数组)
+
+    -   `删除` 需要两个参数，起始位置和要删除的项数
+        ```javascript
+        // 从第三项开始，删除0项
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr1 = arr.splice(3, 0)
+        console.log(arr); // ['a', 'b', 'c', '1', '2', 's']
+        console.log(arr1); // []
+        // 从第三项开始，删除2项
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr2 = arr.splice(3, 2)
+        console.log(arr); // ["a", "b", "c", "s"]
+        console.log(arr2); //  ["1", "2"]
+        // 起始值大于数组长度
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr3 = arr.splice(7, 1)
+        console.log(arr);
+        console.log(arr3);
+        // 为负数的情况 从倒数项开始计算
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr4 = arr.splice(-2, 2)
+        console.log(arr); // ["a", "b", "c", "1"]
+        console.log(arr4); // ["2", "s"]
+        // 项数为负，返回为空
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr5 = arr.splice(2,-2)
+        console.log(arr); // ["a", "b", "c", "1", "2", "s"]
+        console.log(arr5);// []
+        ```
+    -   `插入` 需要三个参数，起始位置、要删除的项数(0)和要插入的项
+
+        ```javascript
+        // 不删除，插入
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr2 = arr.splice(2,0,'x')
+        console.log(arr); //["a", "b", "x", "c", "1", "2", "s"]
+        console.log(arr2); // []
+        ```
+
+    -   `替换` 需要三个参数，起始位置、要删除的项数(0)和要插入的项
+
+        ```javascript
+        // 删除并插入
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr1 = arr.splice(2,2,'x')
+        console.log(arr); // ["a", "b", "x", "2", "s"]
+        console.log(arr1); //  ["c", "1"]
+        // 插入数组
+        var arr = ['a', 'b', 'c', '1', '2', 's']
+        var arr3 = arr.splice(2, 0, 'x', [1, 2, 3])
+        console.log(arr); // ["a", "b", "x", Array(3), "c", "1", "2", "s"]
+        console.log(arr3); // []
+        ```
+
+##### `位置方法`
+
+>   `参数` 要查找的项和起始位置(可选)，查找的项用 `===` 操作，必须完全相等，查找到，返回位置下标，未找到，返回 `-1`
+>
+> -   `indexOf` 从数组开始位置向后查找
+> -   `lastIndexOf` 从数组末尾向前查找
+
+##### `迭代方法`
+
+>  `参数` 两个参数，要在每一项上运行的函数和运行该函数的作用域对象(可选)——影响 `this` 的值；
+>
+> -   `some` 对数组中的每一项运行给定函数，如果任一项都返回 `true`,则返回 `true`;
+> -   `every` 对数组中的每一项运行给定函数，如果每一项都返回 `true`,则返回 `true`;
+> -   `filter` 对数组中的每一项运行给定函数，返回该函数返回值为 `true` 的项所组成的数组;
+>     ```javascript
+>     var arr = [-1, 22, 4, -2, 19, 0]
+>     var result = arr.filter(function(ele, index, arr) {
+>       return (ele > 0)
+>     })
+>     console.log(arr); // [-1, 22, 4, -2, 19, 0]
+>     console.log(result); // [22, 4, 19]
+>     ```
+> -   `forEach` 对数组中的每一项运行给定函数，该方法没有返回值;
+> -   `map` 对数组中的每一项运行给定函数，返回该函数每次调用结果组成的数组;(如果map函数中没有 `return` ，则返回一个长度等于元素组的值为 `undefined` 的数组)
+>     ```javascript
+>     var arr = [-1, 22, 4, -2, 19, 0]
+>     var result = arr.map(function(ele, index, arr) {
+>       return (ele * 2)
+>     })
+>     console.log(arr); // [-1, 22, 4, -2, 19, 0]
+>     console.log(result); // [-2, 44, 8, -4, 38, 0]
+>     ```
+
+##### `归并方法`(ES5新增) 两个方法都会迭代数组所有项，然后构建一个最终返回的值。
+
+> 参数:在每一项上调用的函数和作为归并基础的初始值(可选的)。改函数接收4个参数：前一个值、当前值、项的索引和数组对象。
+
+-   `reduce` 从数组第一项开始，逐个遍历到最后
+-   `reduceRight` 从数组最后一项开始，逐个遍历到最后
+    ```javascript
+    // 一个数组自动求和方法
+    var arr = [1, 2, 3, 4, 5]
+    var result = arr.reduce(function(pre, cur, index, arr) {
+      return pre + cur
+    }, 0)
+    console.log(arr); //[1, 2, 3, 4, 5]
+    console.log(result); //15
+    ```
+    ```javascript
+    // 计算一个数组中，同一个字符出现的次数(当然for循环也很容易实现)
+    var arr = ['A','B', 'C', 'A', 'D', 'C', 'B', 'E', 'C', 'D']
+    var result = arr.reduce(function(pre, cur, index) {
+      pre[cur] = pre[cur] ? ++pre[cur] : 1;
+      return pre;
+    }, {})
+    console.log(result); // {A: 2, B: 2, C: 3, D: 2, E: 1}
+    ```
+
+* * *
