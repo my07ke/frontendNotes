@@ -11,3 +11,5 @@
   * [pdf](https://github.com/zangse/frontendNotes/blob/master/JS/js-web-api.pdf)
   * [前端JS基础--面试题](https://github.com/zangse/frontendNotes/blob/master/JS/js-interview.md)
   * [pdf](https://github.com/zangse/frontendNotes/blob/master/JS/js-interview.pdf)
+  * [前端JS基础--工程化和其他](https://github.com/zangse/frontendNotes/blob/master/JS/frontend.md)
+  * [pdf](https://github.com/zangse/frontendNotes/blob/master/JS/frontend.pdf)
