@@ -18,3 +18,5 @@
 -   前端JS高级:
     -   [前端JS高级--ES6基础](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/es6-basic.md)
     -   [pdf](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/es6-basic.pdf)
+    -   [前端JS高级--原型](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/prototype.md)
+    -   [pdf](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/prototype.pdf)
