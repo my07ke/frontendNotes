@@ -125,9 +125,6 @@
         var hashiqi = new Dog();
         hashiqi.bark();
         hashiqi.eat();
-        ```
-
-
         Dog.prototype.__proto__ === Animal.prototype //true
         // ES6继承
         class Animal {
@@ -152,7 +149,7 @@
         dog.eat();
         ```
 
-  ![!ES5继承](!ES5继承.png)
+    ![!ES5继承](!ES5继承.png)
 
 -   Promise
 
@@ -317,6 +314,7 @@
         ```
 
     -   箭头函数
+
         ```javascript
           // 箭头函数 this 指向
           //  ES5
@@ -345,6 +343,7 @@
           }
           fn.call(obj)
         ```
+
         -   函数体内的 `this` 对象，就是定义时所在的对象，而不是使用时所在的对象
         -   不可以当作构造函数，也就是说，不可以使用 `new` 命令，否则会抛出一个错误
         -   不可以使用 `arguments` 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替

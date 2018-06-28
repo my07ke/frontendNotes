@@ -20,3 +20,5 @@
     -   [pdf](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/es6-basic.pdf)
     -   [前端JS高级--原型](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/prototype.md)
     -   [pdf](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/prototype.pdf)
+    -   [前端JS高级--异步](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/async.md)
+    -   [pdf](https://github.com/zangse/frontendNotes/blob/master/jsAdvanced/async.pdf)
